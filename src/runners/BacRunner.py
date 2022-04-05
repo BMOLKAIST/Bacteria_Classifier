@@ -86,9 +86,9 @@ class BacRunner(BaseRunner):
         
             test_acc, test_confusion, matdict_test  = self._get_acc_test(test_loader, confusion=True)
             
-            os.mkdir(self.model_dir + "/" + self.fname[0:53])
-            np.save(self.model_dir + "/" + self.fname[0:53]+"/test_confusion.npy", test_confusion)
-            io.savemat(self.model_dir + "/" + self.fname[0:53]+"/result_test.mat", matdict_test)
+            os.mkdir(self.model_dir + "/" + self.fname[0:46])
+            np.save(self.model_dir + "/" + self.fname[0:46]+"/test_confusion.npy", test_confusion)
+            io.savemat(self.model_dir + "/" + self.fname[0:46]+"/result_test.mat", matdict_test)
             print(test_confusion)
         return test_acc
         

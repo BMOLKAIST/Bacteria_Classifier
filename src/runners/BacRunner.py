@@ -10,6 +10,8 @@ import time
 from utils import get_confusion
 import scipy.io as io
 import time
+from pathlib import Path
+
 
 class BacRunner(BaseRunner):
     def __init__(self, arg, net, torch_device,  load_fname = None):
@@ -18,11 +20,9 @@ class BacRunner(BaseRunner):
         self.fname = load_fname
         if(self.fname == None):
             self.fname = "save_temp"#"epoch[%05d]"%(self.epoch)
-        self.net = net
-
-        self.load(load_fname) 
             
-  
+        self.net = net
+        self.load(load_fname) 
 
     def load(self, filename=None):
         """ Model load. same with save"""
@@ -86,9 +86,10 @@ class BacRunner(BaseRunner):
         
             test_acc, test_confusion, matdict_test  = self._get_acc_test(test_loader, confusion=True)
             
-            os.mkdir(self.model_dir + "/" + self.fname[0:46])
-            np.save(self.model_dir + "/" + self.fname[0:46]+"/test_confusion.npy", test_confusion)
-            io.savemat(self.model_dir + "/" + self.fname[0:46]+"/result_test.mat", matdict_test)
+            path = Path(self.fname).stem
+            os.mkdir(path)
+            np.save(path+"/test_confusion.npy", test_confusion)
+            io.savemat(path+"/result_test.mat", matdict_test)
             print(test_confusion)
         return test_acc
         

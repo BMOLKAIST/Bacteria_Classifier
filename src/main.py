@@ -63,7 +63,7 @@ def arg_parse():
 if __name__ == "__main__":
     arg = arg_parse()
 
-    if os.path.exists(arg.model_dir) is False:
+    if not arg.load_fname and os.path.exists(arg.model_dir) is False:
         os.mkdir(arg.model_dir)
 
     os.environ["CUDA_VISIBLE_DEVICES"] = arg.gpus
